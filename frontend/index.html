@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Synapse: know what you'll forget before you forget it</title>
+    <meta name="description" content="Synapse turns your notes into a map of every concept, predicts when each one will fade, and shows what to review first." />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Synapse" />
+    <meta property="og:title" content="Synapse: know what you'll forget before you forget it" />
+    <meta property="og:description" content="Your notes become a map of every concept, coloured by how well you still remember it and outlined by how well you understood it." />
+    <meta property="og:url" content="https://synapse-op.us/" />
+    <meta property="og:image" content="https://synapse-op.us/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Synapse concept map: two courses with concepts coloured from red (fading) to green (fresh)." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Synapse: know what you'll forget before you forget it" />
+    <meta name="twitter:description" content="Your notes become a map of every concept, coloured by how well you still remember it." />
+    <meta name="twitter:image" content="https://synapse-op.us/og.png" />
+    <script>
+      // Apply a saved manual theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("synapse.theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

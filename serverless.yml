@@ -1,0 +1,417 @@
+service: synapse
+frameworkVersion: "4"
+
+# Deploy with:  node scripts/deploy.mjs   (loads the repo-root .env; never commit secrets)
+# Optional env: SITE_CERT_ARN (ACM cert in us-east-1) attaches synapse-op.us to CloudFront.
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: us-east-2
+  stage: ${opt:stage, 'dev'}
+  memorySize: 512
+  timeout: 29
+  logRetentionInDays: 7
+  environment:
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY}
+    GEMINI_MODEL: ${env:GEMINI_MODEL, 'gemini-flash-latest'}
+    SUPERMEMORY_API_KEY: ${env:SUPERMEMORY_API_KEY}
+    MONGODB_URI: ${env:MONGODB_URI}
+    MONGODB_DB: ${env:MONGODB_DB, 'synapse'}
+    TIGERDATA_URL: ${env:TIGERDATA_URL}
+    UPLOADS_BUCKET: !Ref UploadsBucket
+    INGEST_FUNCTION_NAME: ${self:service}-${self:provider.stage}-ingestCourse
+    AUTO_CONFIRM_SIGNUPS: ${env:AUTO_CONFIRM_SIGNUPS, 'false'}
+    AI_DAILY_LIMIT: ${env:AI_DAILY_LIMIT, '80'}
+    INGEST_DAILY_LIMIT: ${env:INGEST_DAILY_LIMIT, '8'}
+    ALERTS_TOPIC_ARN: !Ref AlertsTopic
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://synapse-op.us
+        - https://www.synapse-op.us
+        - https://d38jbixicgpgme.cloudfront.net
+        - http://localhost:5173
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - DELETE
+        - OPTIONS
+    authorizers:
+      cognitoJwt:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}
+        audience:
+          - !Ref UserPoolClient
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+            - s3:PutObject
+            - s3:DeleteObject
+          Resource: !Sub ${UploadsBucket.Arn}/*
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource: !GetAtt UploadsBucket.Arn
+        - Effect: Allow
+          Action: cognito-idp:AdminDeleteUser
+          # Scoped to this account's pools in this region (referencing the pool here would create a dependency loop).
+          Resource: !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
+        - Effect: Allow
+          Action:
+            - textract:DetectDocumentText
+            - textract:StartDocumentTextDetection
+            - textract:GetDocumentTextDetection
+          Resource: "*"
+        - Effect: Allow
+          Action: lambda:InvokeFunction
+          Resource: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-ingestCourse
+        - Effect: Allow
+          Action: sns:Publish
+          Resource: !Ref AlertsTopic
+
+build:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: false
+    target: node22
+
+package:
+  individually: true
+
+custom:
+  handlers: backend/lambda/handlers
+  auth:
+    name: cognitoJwt
+
+functions:
+  getGraph:
+    handler: ${self:custom.handlers}/graph.getGraph
+    events:
+      - httpApi: { path: /graph, method: GET, authorizer: "${self:custom.auth}" }
+      - httpApi: { path: "/graph/{courseId}", method: GET, authorizer: "${self:custom.auth}" }
+  postReview:
+    handler: ${self:custom.handlers}/review.postReview
+    events:
+      - httpApi: { path: /review, method: POST, authorizer: "${self:custom.auth}" }
+  getDecayStatus:
+    handler: ${self:custom.handlers}/decay.getDecayStatus
+    events:
+      - httpApi: { path: "/decay-status/{courseId}", method: GET, authorizer: "${self:custom.auth}" }
+  quizGenerate:
+    handler: ${self:custom.handlers}/quiz.generate
+    events:
+      - httpApi: { path: "/quiz/{conceptId}/generate", method: POST, authorizer: "${self:custom.auth}" }
+  quizSubmit:
+    handler: ${self:custom.handlers}/quiz.submit
+    events:
+      - httpApi: { path: "/quiz/{conceptId}/submit", method: POST, authorizer: "${self:custom.auth}" }
+  quizUpload:
+    handler: ${self:custom.handlers}/quiz.upload
+    events:
+      - httpApi: { path: "/quiz/{conceptId}/upload", method: POST, authorizer: "${self:custom.auth}" }
+  coursesCreate:
+    handler: ${self:custom.handlers}/courses.create
+    events:
+      - httpApi: { path: /courses, method: POST, authorizer: "${self:custom.auth}" }
+  coursesGet:
+    handler: ${self:custom.handlers}/courses.get
+    events:
+      - httpApi: { path: "/courses/{courseId}", method: GET, authorizer: "${self:custom.auth}" }
+  coursesLink:
+    handler: ${self:custom.handlers}/courses.link
+    events:
+      - httpApi: { path: "/courses/{courseId}/link/{otherCourseId}", method: POST, authorizer: "${self:custom.auth}" }
+  coursesSkills:
+    handler: ${self:custom.handlers}/courses.skills
+    events:
+      - httpApi: { path: "/courses/{courseId}/skills", method: GET, authorizer: "${self:custom.auth}" }
+  guideList:
+    handler: ${self:custom.handlers}/guide.list
+    events:
+      - httpApi: { path: /guide, method: GET, authorizer: "${self:custom.auth}" }
+  guideGet:
+    handler: ${self:custom.handlers}/guide.get
+    events:
+      - httpApi: { path: "/guide/{conceptId}", method: GET, authorizer: "${self:custom.auth}" }
+  uploadsPresign:
+    handler: ${self:custom.handlers}/uploads.presign
+    events:
+      - httpApi: { path: /uploads/presign, method: POST, authorizer: "${self:custom.auth}" }
+  ingestCourse:
+    handler: ${self:custom.handlers}/ingest.ingestCourse
+    timeout: 300
+    memorySize: 1024
+  deleteAccount:
+    handler: ${self:custom.handlers}/account.deleteAccount
+    timeout: 29
+    environment:
+      USER_POOL_ID: !Ref UserPool
+    events:
+      - httpApi: { path: /account, method: DELETE, authorizer: "${self:custom.auth}" }
+  seedDemo:
+    handler: ${self:custom.handlers}/seedDemo.seed
+    timeout: 120
+    memorySize: 512
+  preSignUp:
+    handler: ${self:custom.handlers}/auth.preSignUp
+    timeout: 5
+    memorySize: 128
+  decayScan:
+    handler: ${self:custom.handlers}/decayScan.scan
+    timeout: 120
+    events:
+      - schedule: rate(1 hour)
+
+resources:
+  extensions:
+    # Hard ceiling on request rate for the whole API; the per-user daily limits sit inside the handlers.
+    HttpApiStage:
+      Properties:
+        DefaultRouteSettings:
+          ThrottlingBurstLimit: 40
+          ThrottlingRateLimit: 20
+  Conditions:
+    HasSiteCert: !Not [!Equals ["${env:SITE_CERT_ARN, ''}", ""]]
+
+  Resources:
+    # ---------- Auth ----------
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: ${self:service}-${self:provider.stage}-users
+        UsernameAttributes: [email]
+        AutoVerifiedAttributes: [email]
+        AccountRecoverySetting:
+          RecoveryMechanisms:
+            - Name: verified_email
+              Priority: 1
+        VerificationMessageTemplate:
+          DefaultEmailOption: CONFIRM_WITH_CODE
+          EmailSubject: Your Synapse code
+          EmailMessage: "Your Synapse code is {####}. It expires in 24 hours. If you did not ask for it, ignore this email."
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireLowercase: true
+            RequireNumbers: true
+            RequireUppercase: false
+            RequireSymbols: false
+        LambdaConfig:
+          PreSignUp: !GetAtt PreSignUpLambdaFunction.Arn
+    UserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: ${self:service}-${self:provider.stage}-web
+        UserPoolId: !Ref UserPool
+        GenerateSecret: false
+        ExplicitAuthFlows:
+          - ALLOW_USER_SRP_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        PreventUserExistenceErrors: ENABLED
+    PreSignUpInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !GetAtt PreSignUpLambdaFunction.Arn
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: !GetAtt UserPool.Arn
+
+    # ---------- Uploads (notes and digital quizzes) ----------
+    UploadsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods: [PUT]
+              AllowedOrigins:
+                - https://synapse-op.us
+                - https://www.synapse-op.us
+                - https://d38jbixicgpgme.cloudfront.net
+                - http://localhost:5173
+              AllowedHeaders: ["*"]
+              MaxAge: 3000
+        LifecycleConfiguration:
+          Rules:
+            - Id: expire-uploads
+              Status: Enabled
+              ExpirationInDays: 30
+
+    # ---------- Operations alarms (subscribe an email to OpsTopic to be notified) ----------
+    OpsTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${self:service}-${self:provider.stage}-ops-alarms
+    ApiServerErrorsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmName: ${self:service}-${self:provider.stage}-api-5xx
+        AlarmDescription: The API returned 5 or more server errors in 5 minutes.
+        Namespace: AWS/ApiGateway
+        MetricName: 5xx
+        Dimensions:
+          - { Name: ApiId, Value: !Ref HttpApi }
+        Statistic: Sum
+        Period: 300
+        EvaluationPeriods: 1
+        Threshold: 5
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        TreatMissingData: notBreaching
+        AlarmActions: [!Ref OpsTopic]
+    ApiTrafficSpikeAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmName: ${self:service}-${self:provider.stage}-api-traffic-spike
+        AlarmDescription: More than 2000 API requests in 5 minutes (possible abuse or runaway cost).
+        Namespace: AWS/ApiGateway
+        MetricName: Count
+        Dimensions:
+          - { Name: ApiId, Value: !Ref HttpApi }
+        Statistic: Sum
+        Period: 300
+        EvaluationPeriods: 1
+        Threshold: 2000
+        ComparisonOperator: GreaterThanThreshold
+        TreatMissingData: notBreaching
+        AlarmActions: [!Ref OpsTopic]
+    IngestErrorsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmName: ${self:service}-${self:provider.stage}-ingest-errors
+        AlarmDescription: A course upload crashed (not a normal "could not read notes" failure).
+        Namespace: AWS/Lambda
+        MetricName: Errors
+        Dimensions:
+          - { Name: FunctionName, Value: !Ref IngestCourseLambdaFunction }
+        Statistic: Sum
+        Period: 300
+        EvaluationPeriods: 1
+        Threshold: 1
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        TreatMissingData: notBreaching
+        AlarmActions: [!Ref OpsTopic]
+    DecayScanErrorsAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmName: ${self:service}-${self:provider.stage}-decay-scan-errors
+        AlarmDescription: The hourly decay scan failed.
+        Namespace: AWS/Lambda
+        MetricName: Errors
+        Dimensions:
+          - { Name: FunctionName, Value: !Ref DecayScanLambdaFunction }
+        Statistic: Sum
+        Period: 3600
+        EvaluationPeriods: 1
+        Threshold: 1
+        ComparisonOperator: GreaterThanOrEqualToThreshold
+        TreatMissingData: notBreaching
+        AlarmActions: [!Ref OpsTopic]
+
+    # ---------- Alerts ----------
+    AlertsTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${self:service}-${self:provider.stage}-forgetting-alerts
+
+    # ---------- Static site ----------
+    SiteBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+    SiteOriginAccessControl:
+      Type: AWS::CloudFront::OriginAccessControl
+      Properties:
+        OriginAccessControlConfig:
+          Name: ${self:service}-${self:provider.stage}-site-oac
+          OriginAccessControlOriginType: s3
+          SigningBehavior: always
+          SigningProtocol: sigv4
+    SiteDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Enabled: true
+          Comment: Synapse frontend (${self:provider.stage})
+          DefaultRootObject: index.html
+          HttpVersion: http2
+          PriceClass: PriceClass_100
+          Aliases: !If
+            - HasSiteCert
+            - [synapse-op.us, www.synapse-op.us]
+            - !Ref AWS::NoValue
+          ViewerCertificate: !If
+            - HasSiteCert
+            - AcmCertificateArn: "${env:SITE_CERT_ARN, ''}"
+              SslSupportMethod: sni-only
+              MinimumProtocolVersion: TLSv1.2_2021
+            - CloudFrontDefaultCertificate: true
+          Origins:
+            - Id: site
+              DomainName: !GetAtt SiteBucket.RegionalDomainName
+              OriginAccessControlId: !GetAtt SiteOriginAccessControl.Id
+              S3OriginConfig:
+                OriginAccessIdentity: ""
+          DefaultCacheBehavior:
+            TargetOriginId: site
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+            AllowedMethods: [GET, HEAD]
+            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # AWS managed: CachingOptimized
+          CustomErrorResponses:
+            - ErrorCode: 403
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+              ErrorCachingMinTTL: 0
+            - ErrorCode: 404
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+              ErrorCachingMinTTL: 0
+    SiteBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref SiteBucket
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: cloudfront.amazonaws.com
+              Action: s3:GetObject
+              Resource: !Sub ${SiteBucket.Arn}/*
+              Condition:
+                StringEquals:
+                  AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${SiteDistribution}
+
+  Outputs:
+    UserPoolId:
+      Value: !Ref UserPool
+    UserPoolClientId:
+      Value: !Ref UserPoolClient
+    UploadsBucketName:
+      Value: !Ref UploadsBucket
+    SiteBucketName:
+      Value: !Ref SiteBucket
+    SiteDistributionId:
+      Value: !Ref SiteDistribution
+    SiteDistributionDomain:
+      Value: !GetAtt SiteDistribution.DomainName
+    AlertsTopicArn:
+      Value: !Ref AlertsTopic
+    OpsTopicArn:
+      Value: !Ref OpsTopic

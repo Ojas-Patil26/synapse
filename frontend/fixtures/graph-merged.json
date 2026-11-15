@@ -1,0 +1,106 @@
+{
+  "courses": [
+    {
+      "id": "cse471",
+      "name": "CSE 471 Intro to AI",
+      "conceptCount": 10,
+      "industrySkills": [
+        "Search and planning algorithms",
+        "Heuristic design",
+        "Probabilistic modeling",
+        "Reinforcement learning fundamentals",
+        "Game-tree and adversarial reasoning",
+        "Constraint solving"
+      ],
+      "skillsSummary": "This course builds the ability to frame real problems as search, constraint, or decision problems and pick an algorithm that solves them efficiently. Those skills carry directly into robotics path planning, scheduling systems, and decision-making under uncertainty.",
+      "status": "ready",
+      "error": null,
+      "createdAt": "2026-11-05T06:00:00Z"
+    },
+    {
+      "id": "cse475",
+      "name": "CSE 475 Foundations of ML",
+      "conceptCount": 9,
+      "industrySkills": [
+        "Supervised model training",
+        "Gradient-based optimization",
+        "Model evaluation and validation",
+        "Overfitting diagnosis",
+        "Neural network fundamentals",
+        "Feature and model selection"
+      ],
+      "skillsSummary": "This course builds the ability to train, evaluate, and debug predictive models from data. Those skills map onto applied ML engineering work: choosing a model family, tuning it, and proving it generalizes before it ships.",
+      "status": "ready",
+      "error": null,
+      "createdAt": "2026-11-05T06:00:00Z"
+    }
+  ],
+  "nodes": [
+    { "id": "cse471-state-space-search", "label": "State-Space Search", "courseId": "cse471", "lastReviewed": "2026-11-14T06:00:00Z", "stability": 12, "retention": 0.92, "confidence": 0.89, "confidenceSource": "generated-quiz", "connectionCount": 4 },
+    { "id": "cse471-a-star", "label": "A* Search", "courseId": "cse471", "lastReviewed": "2026-11-12T06:00:00Z", "stability": 6, "retention": 0.607, "confidence": 0.53, "confidenceSource": "generated-quiz", "connectionCount": 3 },
+    { "id": "cse471-admissible-heuristics", "label": "Admissible Heuristics", "courseId": "cse471", "lastReviewed": "2026-11-12T06:00:00Z", "stability": 4, "retention": 0.472, "confidence": null, "confidenceSource": null, "connectionCount": 1 },
+    { "id": "cse471-minimax", "label": "Adversarial Search (Minimax)", "courseId": "cse471", "lastReviewed": "2026-11-09T06:00:00Z", "stability": 5, "retention": 0.301, "confidence": 0.74, "confidenceSource": "uploaded-quiz", "connectionCount": 2 },
+    { "id": "cse471-alpha-beta", "label": "Alpha-Beta Pruning", "courseId": "cse471", "lastReviewed": "2026-11-09T06:00:00Z", "stability": 3, "retention": 0.135, "confidence": 0.21, "confidenceSource": "generated-quiz", "connectionCount": 1 },
+    { "id": "cse471-csp", "label": "Constraint Satisfaction Problems", "courseId": "cse471", "lastReviewed": "2026-11-06T06:00:00Z", "stability": 4, "retention": 0.105, "confidence": null, "confidenceSource": null, "connectionCount": 2 },
+    { "id": "cse471-mdp", "label": "Markov Decision Processes", "courseId": "cse471", "lastReviewed": "2026-11-14T18:00:00Z", "stability": 8, "retention": 0.939, "confidence": 0.32, "confidenceSource": "generated-quiz", "connectionCount": 3 },
+    { "id": "cse471-q-learning", "label": "Q-Learning", "courseId": "cse471", "lastReviewed": "2026-11-13T06:00:00Z", "stability": 3, "retention": 0.513, "confidence": 0.47, "confidenceSource": "generated-quiz", "connectionCount": 2 },
+    { "id": "cse471-bayes-rule", "label": "Probability and Bayes' Rule", "courseId": "cse471", "lastReviewed": "2026-11-11T06:00:00Z", "stability": 15, "retention": 0.766, "confidence": 0.95, "confidenceSource": "uploaded-quiz", "connectionCount": 3 },
+    { "id": "cse471-bayes-nets", "label": "Bayesian Networks", "courseId": "cse471", "lastReviewed": "2026-11-10T06:00:00Z", "stability": 7, "retention": 0.49, "confidence": 0.63, "confidenceSource": "generated-quiz", "connectionCount": 2 },
+    { "id": "cse475-linear-regression", "label": "Linear Regression", "courseId": "cse475", "lastReviewed": "2026-11-13T06:00:00Z", "stability": 20, "retention": 0.905, "confidence": 0.84, "confidenceSource": "uploaded-quiz", "connectionCount": 3 },
+    { "id": "cse475-gradient-descent", "label": "Gradient Descent", "courseId": "cse475", "lastReviewed": "2026-11-14T06:00:00Z", "stability": 5, "retention": 0.819, "confidence": 0.58, "confidenceSource": "generated-quiz", "connectionCount": 5 },
+    { "id": "cse475-logistic-regression", "label": "Logistic Regression", "courseId": "cse475", "lastReviewed": "2026-11-11T06:00:00Z", "stability": 6, "retention": 0.513, "confidence": 0.68, "confidenceSource": "generated-quiz", "connectionCount": 4 },
+    { "id": "cse475-regularization", "label": "Overfitting and Regularization", "courseId": "cse475", "lastReviewed": "2026-11-08T06:00:00Z", "stability": 5, "retention": 0.247, "confidence": 0.37, "confidenceSource": "generated-quiz", "connectionCount": 3 },
+    { "id": "cse475-cross-validation", "label": "Cross-Validation", "courseId": "cse475", "lastReviewed": "2026-11-08T06:00:00Z", "stability": 3, "retention": 0.097, "confidence": null, "confidenceSource": null, "connectionCount": 1 },
+    { "id": "cse475-naive-bayes", "label": "Naive Bayes Classifier", "courseId": "cse475", "lastReviewed": "2026-11-12T06:00:00Z", "stability": 9, "retention": 0.717, "confidence": 0.79, "confidenceSource": "uploaded-quiz", "connectionCount": 3 },
+    { "id": "cse475-neural-networks", "label": "Neural Networks", "courseId": "cse475", "lastReviewed": "2026-11-15T00:00:00Z", "stability": 4, "retention": 0.939, "confidence": 0.26, "confidenceSource": "generated-quiz", "connectionCount": 3 },
+    { "id": "cse475-backpropagation", "label": "Backpropagation", "courseId": "cse475", "lastReviewed": "2026-11-15T00:00:00Z", "stability": 2, "retention": 0.882, "confidence": null, "confidenceSource": null, "connectionCount": 2 },
+    { "id": "cse475-decision-trees", "label": "Decision Trees", "courseId": "cse475", "lastReviewed": "2026-11-05T06:00:00Z", "stability": 6, "retention": 0.189, "confidence": 0.42, "confidenceSource": "uploaded-quiz", "connectionCount": 1 }
+  ],
+  "edges": [
+    { "source": "cse471-state-space-search", "target": "cse471-a-star", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse471-state-space-search", "target": "cse471-minimax", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse471-state-space-search", "target": "cse471-csp", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse471-state-space-search", "target": "cse471-mdp", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse471-admissible-heuristics", "target": "cse471-a-star", "relationType": "subconcept", "isCrossCourse": false },
+    { "source": "cse471-alpha-beta", "target": "cse471-minimax", "relationType": "subconcept", "isCrossCourse": false },
+    { "source": "cse471-csp", "target": "cse471-a-star", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse471-mdp", "target": "cse471-q-learning", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse471-bayes-rule", "target": "cse471-bayes-nets", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse471-bayes-rule", "target": "cse471-mdp", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-linear-regression", "target": "cse475-logistic-regression", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-gradient-descent", "target": "cse475-logistic-regression", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-gradient-descent", "target": "cse475-neural-networks", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-logistic-regression", "target": "cse475-neural-networks", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-backpropagation", "target": "cse475-neural-networks", "relationType": "subconcept", "isCrossCourse": false },
+    { "source": "cse475-gradient-descent", "target": "cse475-backpropagation", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse475-linear-regression", "target": "cse475-regularization", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-cross-validation", "target": "cse475-regularization", "relationType": "subconcept", "isCrossCourse": false },
+    { "source": "cse475-decision-trees", "target": "cse475-regularization", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse475-naive-bayes", "target": "cse475-logistic-regression", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse475-linear-regression", "target": "cse475-gradient-descent", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse471-bayes-rule", "target": "cse475-naive-bayes", "relationType": "cross-course", "isCrossCourse": true },
+    { "source": "cse471-bayes-nets", "target": "cse475-naive-bayes", "relationType": "cross-course", "isCrossCourse": true },
+    { "source": "cse471-q-learning", "target": "cse475-gradient-descent", "relationType": "cross-course", "isCrossCourse": true }
+  ],
+  "crossCourseLinks": [
+    {
+      "sourceCourseId": "cse471",
+      "targetCourseId": "cse475",
+      "sharedConceptIds": [
+        "cse471-bayes-rule",
+        "cse471-bayes-nets",
+        "cse475-naive-bayes"
+      ],
+      "description": "Naive Bayes is the simplest Bayesian network: both apply Bayes' rule under conditional-independence assumptions."
+    },
+    {
+      "sourceCourseId": "cse471",
+      "targetCourseId": "cse475",
+      "sharedConceptIds": [
+        "cse471-q-learning",
+        "cse475-gradient-descent"
+      ],
+      "description": "Both improve an estimate through repeated small updates scaled by a learning rate until it converges."
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "courses": [
+    {
+      "id": "cse475",
+      "name": "CSE 475 Foundations of ML",
+      "conceptCount": 9,
+      "industrySkills": [
+        "Supervised model training",
+        "Gradient-based optimization",
+        "Model evaluation and validation",
+        "Overfitting diagnosis",
+        "Neural network fundamentals",
+        "Feature and model selection"
+      ],
+      "skillsSummary": "This course builds the ability to train, evaluate, and debug predictive models from data. Those skills map onto applied ML engineering work: choosing a model family, tuning it, and proving it generalizes before it ships.",
+      "status": "ready",
+      "error": null,
+      "createdAt": "2026-11-05T06:00:00Z"
+    }
+  ],
+  "nodes": [
+    { "id": "cse475-linear-regression", "label": "Linear Regression", "courseId": "cse475", "lastReviewed": "2026-11-13T06:00:00Z", "stability": 20, "retention": 0.905, "confidence": 0.84, "confidenceSource": "uploaded-quiz", "connectionCount": 3 },
+    { "id": "cse475-gradient-descent", "label": "Gradient Descent", "courseId": "cse475", "lastReviewed": "2026-11-14T06:00:00Z", "stability": 5, "retention": 0.819, "confidence": 0.58, "confidenceSource": "generated-quiz", "connectionCount": 4 },
+    { "id": "cse475-logistic-regression", "label": "Logistic Regression", "courseId": "cse475", "lastReviewed": "2026-11-11T06:00:00Z", "stability": 6, "retention": 0.513, "confidence": 0.68, "confidenceSource": "generated-quiz", "connectionCount": 4 },
+    { "id": "cse475-regularization", "label": "Overfitting and Regularization", "courseId": "cse475", "lastReviewed": "2026-11-08T06:00:00Z", "stability": 5, "retention": 0.247, "confidence": 0.37, "confidenceSource": "generated-quiz", "connectionCount": 3 },
+    { "id": "cse475-cross-validation", "label": "Cross-Validation", "courseId": "cse475", "lastReviewed": "2026-11-08T06:00:00Z", "stability": 3, "retention": 0.097, "confidence": null, "confidenceSource": null, "connectionCount": 1 },
+    { "id": "cse475-naive-bayes", "label": "Naive Bayes Classifier", "courseId": "cse475", "lastReviewed": "2026-11-12T06:00:00Z", "stability": 9, "retention": 0.717, "confidence": 0.79, "confidenceSource": "uploaded-quiz", "connectionCount": 1 },
+    { "id": "cse475-neural-networks", "label": "Neural Networks", "courseId": "cse475", "lastReviewed": "2026-11-15T00:00:00Z", "stability": 4, "retention": 0.939, "confidence": 0.26, "confidenceSource": "generated-quiz", "connectionCount": 3 },
+    { "id": "cse475-backpropagation", "label": "Backpropagation", "courseId": "cse475", "lastReviewed": "2026-11-15T00:00:00Z", "stability": 2, "retention": 0.882, "confidence": null, "confidenceSource": null, "connectionCount": 2 },
+    { "id": "cse475-decision-trees", "label": "Decision Trees", "courseId": "cse475", "lastReviewed": "2026-11-05T06:00:00Z", "stability": 6, "retention": 0.189, "confidence": 0.42, "confidenceSource": "uploaded-quiz", "connectionCount": 1 }
+  ],
+  "edges": [
+    { "source": "cse475-linear-regression", "target": "cse475-logistic-regression", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-gradient-descent", "target": "cse475-logistic-regression", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-gradient-descent", "target": "cse475-neural-networks", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-logistic-regression", "target": "cse475-neural-networks", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-backpropagation", "target": "cse475-neural-networks", "relationType": "subconcept", "isCrossCourse": false },
+    { "source": "cse475-gradient-descent", "target": "cse475-backpropagation", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse475-linear-regression", "target": "cse475-regularization", "relationType": "prerequisite", "isCrossCourse": false },
+    { "source": "cse475-cross-validation", "target": "cse475-regularization", "relationType": "subconcept", "isCrossCourse": false },
+    { "source": "cse475-decision-trees", "target": "cse475-regularization", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse475-naive-bayes", "target": "cse475-logistic-regression", "relationType": "related", "isCrossCourse": false },
+    { "source": "cse475-linear-regression", "target": "cse475-gradient-descent", "relationType": "related", "isCrossCourse": false }
+  ],
+  "crossCourseLinks": []
+}

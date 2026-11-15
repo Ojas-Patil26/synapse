@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env.local
+.env.*.local
+screenshots/tmp/
+# The repo-root .gitignore ignores .env.*; these two hold no secrets and must be committed.
+!.env.example
+!.env.development
