@@ -1,0 +1,94 @@
+{
+  "marks": [
+    {
+      "id": "01-intro",
+      "at": 0
+    },
+    {
+      "id": "02-landing-map",
+      "at": 21.343
+    },
+    {
+      "id": "03-login",
+      "at": 57.231
+    },
+    {
+      "id": "04-home-map",
+      "at": 69.061
+    },
+    {
+      "id": "05-review",
+      "at": 97.911
+    },
+    {
+      "id": "06-upload",
+      "at": 122.986
+    },
+    {
+      "id": "07-guide",
+      "at": 136.323
+    },
+    {
+      "id": "08-close",
+      "at": 154.263
+    }
+  ],
+  "timings": [
+    {
+      "id": "01-intro",
+      "page": "landing-hero",
+      "duration": 20.447324,
+      "heygen_duration": 20.44732426303855,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "02-landing-map",
+      "page": "landing-scroll",
+      "duration": 20.226735,
+      "heygen_duration": 20.22673469387755,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "03-login",
+      "page": "login",
+      "duration": 4.559773,
+      "heygen_duration": 4.559773242630386,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "04-home-map",
+      "page": "home",
+      "duration": 28.80712,
+      "heygen_duration": 28.807120181405896,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "05-review",
+      "page": "review",
+      "duration": 24.534036,
+      "heygen_duration": 24.534036281179137,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "06-upload",
+      "page": "upload",
+      "duration": 13.336916,
+      "heygen_duration": 13.336916099773243,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "07-guide",
+      "page": "guide",
+      "duration": 17.939569,
+      "heygen_duration": 17.93956916099773,
+      "model": "heygen-voice-1-turbo-free"
+    },
+    {
+      "id": "08-close",
+      "page": "home-close",
+      "duration": 14.862925,
+      "heygen_duration": 14.862925170068028,
+      "model": "heygen-voice-1-turbo-free"
+    }
+  ]
+}

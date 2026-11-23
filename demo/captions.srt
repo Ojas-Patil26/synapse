@@ -1,0 +1,209 @@
+1
+00:00:00,080 --> 00:00:04,390
+Hi. This is Synapse — a learning system that
+predicts what you're about
+
+2
+00:00:04,480 --> 00:00:06,435
+to forget, before you forget it.
+
+3
+00:00:06,525 --> 00:00:09,502
+In the future of work, people are always
+learning:
+
+4
+00:00:09,592 --> 00:00:11,547
+new tools, new courses, new certifications.
+
+5
+00:00:11,637 --> 00:00:13,592
+The hard part isn't finding material.
+
+6
+00:00:13,682 --> 00:00:17,681
+It's knowing what still sticks — and what
+is quietly slipping away
+
+7
+00:00:17,771 --> 00:00:20,407
+before the next deadline or the next shift.
+
+8
+00:00:20,527 --> 00:00:24,019
+On the landing page, you can already see
+the idea.
+
+9
+00:00:24,109 --> 00:00:27,631
+Synapse turns your own notes into a living
+concept map.
+
+10
+00:00:27,721 --> 00:00:30,159
+Each concept is coloured by predicted retention,
+
+11
+00:00:30,249 --> 00:00:34,133
+and outlined by how well you understood it
+on a quiz.
+
+12
+00:00:34,223 --> 00:00:38,467
+Memory and understanding stay separate, so
+you never confuse I saw this
+
+13
+00:00:38,557 --> 00:00:40,634
+recently with I actually get it.
+
+14
+00:00:40,754 --> 00:00:43,853
+I'll sign in with a demo account so you can
+see a
+
+15
+00:00:43,943 --> 00:00:45,194
+real workspace in dark mode.
+
+16
+00:00:45,314 --> 00:00:47,064
+Here is the home map.
+
+17
+00:00:47,154 --> 00:00:49,683
+Two course hubs branch into concepts —
+
+18
+00:00:49,773 --> 00:00:52,676
+nineteen concepts across two courses in this
+demo.
+
+19
+00:00:52,766 --> 00:00:53,799
+Green means fresh.
+
+20
+00:00:53,889 --> 00:00:54,921
+Red means fading.
+
+21
+00:00:55,011 --> 00:00:58,288
+Eleven of these are already below fifty percent
+retention.
+
+22
+00:00:58,378 --> 00:01:03,526
+The outline around each node is quiz confidence:
+not assessed, low, medium, or high.
+
+23
+00:01:03,616 --> 00:01:07,641
+When two courses share an idea, Synapse draws
+a cross-course link.
+
+24
+00:01:07,731 --> 00:01:11,382
+What you learn in one place can strengthen
+another —
+
+25
+00:01:11,472 --> 00:01:14,001
+the way skills compound on the job.
+
+26
+00:01:14,121 --> 00:01:17,958
+On the right, Review next surfaces the most
+urgent concepts.
+
+27
+00:01:18,048 --> 00:01:20,728
+Alpha-Beta Pruning is at about twenty percent.
+
+28
+00:01:20,818 --> 00:01:22,707
+Overfitting and Regularization at twenty-nine.
+
+29
+00:01:22,797 --> 00:01:24,289
+Backpropagation is at zero.
+
+30
+00:01:24,379 --> 00:01:28,247
+Click one to open a short explanation and
+review it.
+
+31
+00:01:28,337 --> 00:01:31,808
+Retention jumps back up, and the next fade
+slows.
+
+32
+00:01:31,898 --> 00:01:36,556
+That is the spacing effect, fitted to your
+own review history —
+
+33
+00:01:36,646 --> 00:01:38,535
+not a generic flashcard schedule.
+
+34
+00:01:38,655 --> 00:01:41,964
+Upload a course from PDFs, images, or text —
+
+35
+00:01:42,054 --> 00:01:45,013
+including photographed handwriting — up to
+five files.
+
+36
+00:01:45,103 --> 00:01:47,680
+Name the course, optionally tag a semester,
+
+37
+00:01:47,770 --> 00:01:51,872
+and Synapse extracts the concepts and builds
+the map for you.
+
+38
+00:01:51,992 --> 00:01:54,663
+The Guide ranks every concept weakest first,
+
+39
+00:01:54,753 --> 00:01:57,852
+with retention percentages, confidence, recency,
+explanations, study resources,
+
+40
+00:01:57,942 --> 00:01:59,845
+and industry skills per course.
+
+41
+00:01:59,935 --> 00:02:04,629
+So your next hour of work goes where it matters
+most —
+
+42
+00:02:04,719 --> 00:02:09,413
+whether you're a student, a trainee, or someone
+reskilling for a new
+
+43
+00:02:09,931 --> 00:02:13,437
+For the future of work, continuous learning
+is the job.
+
+44
+00:02:13,527 --> 00:02:15,974
+Synapse doesn't ask people to reread everything.
+
+45
+00:02:16,064 --> 00:02:21,049
+It shows what is about to fade — so skills
+stay sharp without burnout.
+
+46
+00:02:21,139 --> 00:02:24,674
+That's Synapse. Know what you'll forget before
+you forget it.
+

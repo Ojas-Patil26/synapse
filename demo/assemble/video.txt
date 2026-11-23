@@ -1,0 +1,8 @@
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/01-intro-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/02-landing-map-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/03-login-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/04-home-map-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/05-review-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/06-upload-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/07-guide-fit.mp4'
+file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/assemble/08-close-fit.mp4'
