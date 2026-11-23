@@ -1,8 +1,0 @@
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/01-intro.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/02-landing-map.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/03-login.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/04-home-map.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/05-review.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/06-upload.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/07-guide.wav'
-file '/Users/ojas/Desktop/MAIN/coding_project/synapse/demo/scenes/08-close.wav'

@@ -20,3 +20,4 @@ frontend/.shots.mjs
 frontend/.env.production
 .claude/
 CLAUDE.md
+demo/
