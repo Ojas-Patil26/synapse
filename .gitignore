@@ -18,3 +18,4 @@ coverage/
 frontend/screenshots/
 frontend/.shots.mjs
 frontend/.env.production
+.claude/
